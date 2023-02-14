@@ -3,6 +3,7 @@ from .models import *
 from django.db.models import Q
 from .forms import *
 # Create your views here.
+# index function
 def index(request):
     # Veritabanımızdaki bilgileri çekmek için
     urunler = Urun.objects.all() # all fonksiyonu Urun classına ait tüm objeleri çeker
