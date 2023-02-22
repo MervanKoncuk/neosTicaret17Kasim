@@ -28,7 +28,12 @@ urlpatterns = [
     path('register/', userRegister, name='register'),
     path('login/', userLogin, name='login'),
     path('logout/', userLogout, name='logout'),
-    path('olustur/', olustur, name='olustur')
+    path('olustur/', olustur, name='olustur'),
+    path('sepet/', sepet, name='sepet'),
+    path('odeme/', payment, name='payment'),
+    path('result/', result, name='result'),
+    path('success/', success, name='success'),
+    path('fail/', fail, name='failure')
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 # media klasöründeki resimlerin sayfamızda görüntülenebilmesi için

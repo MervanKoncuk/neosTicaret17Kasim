@@ -32,32 +32,38 @@
     {% endif %}
 
     {% block content %}
-      <div class="container mt-3">
-          <div class="row">
-              {% for urun in urunler %}
-                  <div class="col-4 mb-3">
-                      <div class="card">
-                          {% if urun.resim %}
-                              <img src="{{urun.resim.url}}" class="card-img-top" height="200" alt="...">
-                          {% else %}
-                              <img src="{% static 'resim1.jpg' %}" class="card-img-top" height="200" alt="...">
-                          {% endif %}
-                          <div class="card-body">
-                              <h5 class="card-title">{{urun.isim}}</h5>
-                              <p class="card-text">{{urun.aciklama}}</p>
-                              <p class="card-text">{{urun.fiyat}} TL</p>
-                              <p>{{urun.kategori}}</p>
-                              {% for alt in urun.alt.all %}
+    <div class="container mt-3">
+        <div class="row">
+            {% for urun in urunler %}
+                <div class="col-4 mb-3">
+                    <div class="card">
+                        {% if urun.resim %}
+                            <img src="{{urun.resim.url}}" class="card-img-top" height="200" alt="...">
+                        {% else %}
+                            <img src="{% static 'resim1.jpg' %}" class="card-img-top" height="200" alt="...">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{urun.isim}}</h5>
+                            <p class="card-text">{{urun.aciklama}}</p>
+                            <p class="card-text">{{urun.fiyat}} TL</p>
+                            <p>{{urun.kategori}}</p>
+                            {% for alt in urun.alt.all %}
                                 <small>{{alt.isim}}</small>
-                              {% endfor %}
-                              <br>  
-                              <a href="{% url 'urun' urun.id %}" class="btn btn-primary">Ürünü incele</a>
-                          </div>
-                      </div>
-                  </div>
-              {% endfor %}
-          </div>
-      </div>
+                            {% endfor %}
+                            <br>
+                            <form action="" class="d-inline-block mt-2" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="urunId" value="{{urun.id}}">
+                                <input type="number" value="1" name="adet" class="form-control w-50" id="">
+                                <input type="submit" value="Sepete Ekle" class="btn btn-primary my-2">
+                            </form>
+                            <a href="{% url 'urun' urun.id %}" class="btn btn-primary">Ürünü incele</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endblock content %}
 
     {% include "includes/_footer.html" %}

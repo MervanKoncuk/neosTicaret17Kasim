@@ -36,3 +36,24 @@ class Urun(models.Model):
 # manytomany
 # onetoone
 # foreignkey = manytoone 
+
+# Sepet
+class Sepet(models.Model):
+    urun = models.ForeignKey(Urun, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    adet = models.IntegerField(default=1)
+    toplam = models.IntegerField()
+    odendiMi = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.urun.isim
+
+
+class Odeme(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    sepet = models.ManyToManyField(Sepet)
+    toplamFiyat = models.IntegerField()
+    odendiMi = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
