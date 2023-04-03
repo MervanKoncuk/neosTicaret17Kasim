@@ -285,3 +285,4 @@ def sepet(request):
         'toplam':toplam
     }
     return render(request, 'sepet.html', context)
+

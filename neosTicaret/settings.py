@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 """ 
-1 - django-admin startproject neosTicaret
+1 -django-admin startproject neosTicaret
 2 - manage.py dosyasını çalıştırıp migrate komutunun girilmesi (veri tabanını oluşturmak için)
-3 - manage.py startapp (app ismi) komutu ile app oluşturulması 
+3 -  manage.py startapp (app ismi) komutu ile app oluşturulması 
 --- admin paneline girebilmek için kullanıcı adı ve şifre oluşturma komutu : python manage.py createsuperuser ---
 4 - settings.py dosyasında INSTALLED_APPS kısmına app ismi eklenmesi (appimizin projemizde çalışması için) - (virgülü unutmayın)
 5 - html dosyalarımız için appimizin içerisine "templates" adında bir klasör oluşturulması
@@ -29,11 +29,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 -----------------
 Veritabanından resim ekleme 149. satır
 Ancak ilk olarak import os komutunun girilmesi gerekiyor
- """
+"""
 
 
 from pathlib import Path
 import os
+from os import getenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,12 +43,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vttn!x^+7i-7pll_+1bq0oy2uhln2r&arq9f!rk5jf%6i6=dzz'
+# SECRET_KEY = 'django-insecure-vttn!x^+7i-7pll_+1bq0oy2uhln2r&arq9f!rk5jf%6i6=dzz'
+SECRET_KEY = getenv('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('IS_DEVELOPMENT', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    getenv(
+        'ALLOWED_HOSTS',
+    )
+]
 
 
 # Application definition
@@ -152,6 +159,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = ''
 MEDIA_ROOT = os.path.join(
     BASE_DIR / 'media'
+)
+STATIC_ROOT = os.path.join(
+    BASE_DIR / 'staticfiles'
 )
 # devamı urls.py dosyasında
 
